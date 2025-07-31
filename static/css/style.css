@@ -1,0 +1,384 @@
+body, .main-wrapper {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.github-sticky {
+  position: fixed;
+  top: 30px;        /* Not too close to top */
+  left: 20px;       /* Offset from left edge */
+  background-color: #000322d8;
+  color: rgb(19, 78, 6);
+  padding: 12px 16px;
+  border-radius: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(8, 3, 31, 0.625);
+}
+
+.github-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
+  /* Make icon white if it's black */
+}
+
+.github-link {
+  font-size: 14px;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.github-link:hover {
+  color: #ffcc00;
+}
+
+
+
+/* Ensure parent takes full width and centers content */
+.header-container {
+  width: 100%;
+  display: grid;
+  justify-content: center;  /* ✅ Centers horizontally */
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Style the headline itself */
+.headline {
+  font-size: 28px;
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+}
+.main-wrapper {
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container {
+  width: 970px;
+  height: 580px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  display: flex;
+  overflow: hidden;  /* Ensures internal layout stays clean */
+}
+.left-panel {
+  width: 30%;
+  height: 100%;
+  border-right: 2px solid #aaa;  /* Right border line */
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+}
+
+/* Right panel - remaining 70% */
+.right-panel {
+  width: 70%;
+  height: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.right-panel {
+  width: 70%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 🔹 Navbar */
+.right-header {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  background-color: #222;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+/* 🔹 Dropdown */
+.pdf-select-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* 🔹 Question Input */
+.question-container {
+  display: flex;
+  gap: 10px;
+}
+
+.question-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.recent-questions {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  height: auto;
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.recent-questions h4 {
+  margin: 0 0 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.question-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.question-item {
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 5px;
+}
+
+
+.ask-btn {
+  padding: 10px 16px;
+  border: none;
+  background-color: #5a4bdb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 🔹 Answer Box */
+.answer-container {
+  flex: 1;
+  max-height: 50%;
+  overflow-y: auto;
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+form#uploadForm {
+  width: 100%;
+  height: 100%;
+    height: 100%;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: space-between; /* or row if it's horizontal layout */
+}
+
+.left-panel {
+  width: 30%;
+  height: 100%;
+  border-right: 2px solid #aaa;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top = 40% height */
+/* Container */
+.left-top {
+  height: 60%;
+  background-color: #f4f4f4;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Upload Icon */
+.upload-icon {
+  width: 60px;
+  opacity: 0.4;
+}
+
+/* PDF Preview Styling */
+.pdf-preview {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* PDF Frame */
+.pdf-preview iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Remove Button (✖) */
+.remove-preview {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  line-height: 20px;
+  text-align: center;
+}
+
+.upload-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Middle = 10% height */
+.left-middle {
+  height: 40%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.left-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4a65f0;
+  color: white;
+  cursor: pointer;
+}
+.left-btn:hover {
+  background-color: #05e74d;
+}
+
+/* Bottom = 50% height */
+.left-bottom {
+  height: 50%;
+  padding: 10px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.document-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.document-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.doc-name {
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #d11a2a;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  color: #ff0000;
+}
+
+.custom-footer {
+  background-color: #111;
+  width: 100%;
+  color: white;
+  padding: 25px 15px;
+  text-align: center;
+  margin-top: 40px;
+  border-top: 1px solid #333;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 15px;
+}
+
+.footer-icons a {
+  color: white;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.footer-icons a:hover {
+  color: #ffcc00;
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: #aaa;
+}
+
+
+
+
+

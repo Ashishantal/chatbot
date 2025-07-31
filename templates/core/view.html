@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Uploaded Documents</h2>
+<ul>
+  {% for doc in docs %}
+    <li>
+      <strong>{{ doc.file.name }}</strong><br>
+      <a href="{{ doc.file.url }}" target="_blank">Open PDF</a><br>
+      {{ doc.extract|truncatewords:50 }}
+      <form method="post" action="{% url 'delete_document' doc.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+<div> <a href="{% url 'ask' %}">Ask a Question</a></div>
+{% endblock %}

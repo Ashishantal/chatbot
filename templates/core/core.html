@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="main-wrapper">
+<div class="header-container">
+  <h1 class="headline">DocChat - Ask Your Document</h1>
+</div>
+<div class="github-sticky">
+  <img src="{% static 'images/github.svg' %}" alt="GitHub Icon" class="github-icon">
+  <a href="https://github.com/your-repo-url" class="github-link" target="_blank">
+    Check out GitHub code →
+  </a>
+</div>
+
+  <div class="main-container">
+  
+  
+  
+  <div class="left-panel">
+   <form method="POST" enctype="multipart/form-data" id="uploadForm">
+        {% csrf_token %}
+      
+    <!-- Left Top Section -->
+      <div class="left-top" onclick="triggerFileInput(event)">
+      <input type="file" id="fileInput" name="file" accept="application/pdf" onchange="previewPDF(event)" hidden>
+
+       <!-- Placeholder Icon -->
+      <div id="upload-placeholder">
+        <img src="{% static 'images/upload.svg' %}" alt="Upload" class="upload-icon">
+      </div>
+
+        <!-- PDF Preview Box -->
+      <div id="pdf-preview" class="pdf-preview" style="display: none;">
+       <button type="button" class="remove-preview" onclick="removePDF(event)">✖</button>
+        <iframe id="preview-frame"></iframe>
+      </div>
+    </div>
+
+    <!-- Left Middle Section -->
+    <div class="left-middle">
+      <button class="left-btn">Button 1</button>
+    </div>
+  </form>
+
+    <!-- Left Bottom Section -->
+<div class="left-bottom">
+    <h3 class="section-title">Documents</h3>
+  <div class="document-list">
+    {% for doc in docs %}
+      <div class="document-item">
+        <span class="doc-name">{{ doc.file.name|slice:"7:" }}</span>
+        <form method="post" action="{% url 'delete_document' doc.pk %}" style="margin: 0;">
+          {% csrf_token %}
+          <button type="submit" class="delete-btn" title="Delete">&times;</button>
+        </form>
+      </div>
+    {% empty %}
+      <p style="text-align: center; color: #999;">No documents uploaded</p>
+    {% endfor %}
+  </div>
+</div>
+<!-- end of Left Bottom Section -->
+
+</div>
+
+  <div class="right-panel">
+
+  <!-- 🔹 Navbar Header -->
+  <div class="right-header">
+    Ask the Question
+  </div>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <!-- 🔹 PDF Selector -->
+  <div class="pdf-select-container">
+    <select name="document" id="documentSelect">
+      {% for doc in docs %}
+        <option value="{{ doc.id }}">{{ doc.file.name }}</option>
+      {% empty %}
+        <option disabled>No documents uploaded</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- 🔹 Question Input -->
+  <div class="question-container">
+    <input type="text" name="question" placeholder="Ask something..." class="question-input">
+    <button class="ask-btn">Ask</button>
+  </div>
+
+  </form>
+
+  <!-- 🔹 Answer Display -->
+  <div class="answer-container">
+    <h4>Answer:</h4>
+    <p id="answerText">{% if answer %}{{ answer }}{% else %}No answer yet.{% endif %}</p>
+  </div>
+  <!-- 🔹 Recent Questions -->
+<div class="recent-questions">
+  <h4>Recent Questions</h4>
+  <ul class="question-list">
+    {% for item in history %}
+      <li class="question-item">
+        <strong>Q:</strong> {{ item.question }}<br>
+        <strong>A:</strong> {{ item.answer }}
+      </li>
+    {% empty %}
+      <li>No recent questions yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+</div>
+
+  
+  </div>
+<footer class="custom-footer">
+  <div class="footer-name">Ashish Antal</div>
+
+  <div class="footer-icons">
+    <a href="https://github.com/Ashishantal" target="_blank"><i class="bi bi-github"></i></a>
+    <a href="mailto:ashishash9015@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+    <a href="https://www.linkedin.com/in/ashish-antal-165783236/" target="_blank"><i class="bi bi-linkedin"></i></a>
+  </div>
+
+  <div class="footer-copy">© 2025 Ashish Antal. All rights reserved.</div>
+</footer>
+</div>
+{% endblock %}

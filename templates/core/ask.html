@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav>
+    <div>
+        <span>&#9776;</span>  <!-- Hamburger icon -->
+        <span>My App</span>
+    </div>
+</nav>
+
+<div class="page-container">
+
+  <!-- ✅ Upload Section (Center) -->
+  <div class="center-column">
+    <form method="post" enctype="multipart/form-data" class="upload-form">
+      {% csrf_token %}
+      <label class="custum-file-upload">
+  <input type="file" name="file" accept="application/pdf" onchange="previewPDF(event)">
+  
+  <!-- Icon & Text -->
+  <div class="icon" id="uploadIcon">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 16v2m6-8H6m12 0a4 4 0 01-8 0 4 4 0 00-8 0h16z" />
+    </svg>
+  </div>
+  <div class="text" id="uploadText">
+    <span>Upload or drag your file</span>
+  </div>
+
+  <!-- PDF Preview Frame -->
+  <div id="pdf-preview" class="pdf-preview" style="display: none;">
+  <button type="button" class="remove-preview" onclick="removePDF()">✖</button>
+  <iframe id="preview-frame"></iframe>
+  </div>
+</label>
+      <button type="submit" class="upload-btn">Upload</button>
+    </form>
+
+    <!-- ✅ Ask Button -->
+  
+
+    <!-- ✅ ChatGPT-like Section -->
+    <form method="post"  class="chat-box">
+      {% csrf_token %}
+      <input type="text" name="question" class="chat-input" placeholder="Ask something...">
+      <select name="document" class="chat-select">
+        {% for doc in docs %}
+        <option  value="{{ doc.id }}">{{ doc.file.name|slice:"6:19" }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="submit-btn">Send</button>
+      {% if answer %}
+      <div class="chat-response"><h3>Answer:</h3>{{ answer }}</div>
+      {% endif %}
+    </form>
+  </div>
+
+  <!-- ✅ Right Column: Uploaded Files -->
+  <div class="right-column">
+  
+    <h3>Uploaded Documents</h3>
+    {% for doc in docs %}
+    <div class="doc-card">
+      {{ doc.file.name|slice:"6:19" }}
+      <form method="post" action="{% url 'delete_document' doc.id %}" class="delete-form" onsubmit="return confirm('Delete this document?');">
+        {% csrf_token %}
+        <button  class="delete-btn" title="Delete">
+           <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18" fill="#e74c3c">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 
+             12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+        </button>
+      </form>
+    </div>
+  {% empty %}
+    <p>No documents uploaded yet.</p>
+  {% endfor %}
+</div>
+
+<div class="left-column">
+  <h3>Chat History</h3>
+  {% if history %}
+    {% for chat in history %}
+      <div class="chat-history-item">
+        <strong>Q:</strong> {{ chat.question|truncatechars:50 }}<br>
+        <small><strong>A:</strong> {{ chat.answer|truncatechars:50 }}</small>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No questions asked yet.</p>
+  {% endif %}
+</div>
+</div>
+
+{% endblock %}
+
+
