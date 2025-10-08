@@ -63,7 +63,7 @@ def process_question(question, base_name):
     Answer:
     """
     response = co.chat(
-        model="command-r",
+        model="command-r-plus-08-2024",
         message=prompt,
         temperature=0.3
     )
