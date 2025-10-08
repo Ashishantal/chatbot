@@ -62,8 +62,12 @@ def process_question(question, base_name):
     Question: {question}
     Answer:
     """
-    response = co.generate(prompt=prompt, model="command-r-plus", max_tokens=200, temperature=0.3)
-    return response.generations[0].text.strip(), context
+    response = co.chat(
+        model="command-r-plus",
+        message=prompt,
+        temperature=0.3
+    )
+    return response.text.strip(), context
 
 
 
